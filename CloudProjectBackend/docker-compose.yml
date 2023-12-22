@@ -1,0 +1,52 @@
+version: "3.3"
+services:
+  application:
+    build: ./CRUD
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_URI_COMPOSE=mongodb://admin:admin@mongodb:27017/mydatabase
+    depends_on:
+      - "mongodb"
+
+  mongodb:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - mongo-volume:/data/db:rw
+
+  mongo-express:
+    image: "mongo-express"
+    ports:
+      - "8081:8081"
+    restart: always
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+    depends_on:
+      - "mongodb"
+
+  auth:
+    build:
+      context: ./AUTH
+      dockerfile: Dockerfile
+    container_name: auth-app
+    ports:
+      - 5001:5001
+    environment:
+      - DB_URI_COMPOSE=mongodb://admin:admin@mongodb:27017/mydatabase
+    volumes:
+      - type: bind
+        source: ./AUTH
+        target: /srv/app
+    tty: true
+   # depends_on:
+   #   - "application"  # Assuming your front-end needs to connect to the Node.js application
+
+volumes:
+  mongo-volume:

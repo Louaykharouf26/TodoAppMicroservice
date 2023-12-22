@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-app
+  template:
+    metadata:
+      labels:
+        app: auth-app
+    spec:
+      containers:
+        - name: auth-app
+          image: louaykharouf/authcloudprojectimage
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5001
+          env:
+            - name: MONGO_URI
+              value: "mongodb://cosmos-for-python:2FkThuLJGPBb2EisGUsQyYdZUElfuz4xLApbgJuHKScBfu35EGTXgVBczLzEFtvxe7eyiMR4JeveACDbkWpU8w==@cosmos-for-python.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@cosmos-for-python@"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-app
+spec:
+  selector:
+    app: auth-app
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001
+  type: ClusterIP  # Use ClusterIP for internal access

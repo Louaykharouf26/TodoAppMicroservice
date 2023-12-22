@@ -1,0 +1,37 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-front-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-front-app
+  template:
+    metadata:
+      labels:
+        app: todo-front-app
+    spec:
+      containers:
+        - name: todo-front-app-container
+          image: louaykharouf/todomicrofront
+          ports:
+            - containerPort: 5174
+
+---
+
+# service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-front-app-service
+spec:
+  selector:
+    app: todo-front-app
+  ports:
+    - protocol: TCP
+      port: 5174
+      targetPort: 5174
+  type: LoadBalancer

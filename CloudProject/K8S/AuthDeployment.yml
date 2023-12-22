@@ -1,0 +1,37 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-front-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-front-app
+  template:
+    metadata:
+      labels:
+        app: auth-front-app
+    spec:
+      containers:
+        - name: auth-front-app-container
+          image: louaykharouf/authmicrofront
+          ports:
+            - containerPort: 5173
+
+---
+
+# service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-front-app-service
+spec:
+  selector:
+    app: auth-front-app
+  ports:
+    - protocol: TCP
+      port: 5173
+      targetPort: 5173
+  type: LoadBalancer
