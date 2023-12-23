@@ -63,7 +63,6 @@ pipeline {
             steps {
                 script {
                     echo "======== connect to the cluster  ========"
-                    sh "az login --service-principal --username 483b1b78-2a0e-4b58-aff3-9354bba0abbd --password GLz8Q~d5JGIzIAo3eo.zTchqJovoWjBHxOCXFciL --tenant dbd6664d-4eb9-46eb-99d8-5c43ba153c61"
                     sh "az aks get-credentials --resource-group myResourceGroup --name myAKSCluster --overwrite-existing"
                     echo "======== Deploying Microservice stage ========"
                       dir('CloudProjectBackend/K8S') {
