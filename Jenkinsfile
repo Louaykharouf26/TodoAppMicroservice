@@ -48,7 +48,7 @@ pipeline {
                       sh "docker push louaykharouf/authmicrofront3"
                       }
                     echo "======== building CRUD Microservice stage ========"
-                     dir('CloudProjectBackend/CRUD') {
+                     dir('CloudProject/Todo-App-Front') {
                       echo "======== executing stage ========"
                  
                       sh "docker build -t todomicrofront2 ."
