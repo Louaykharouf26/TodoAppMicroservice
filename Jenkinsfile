@@ -18,7 +18,7 @@ pipeline {
                      echo "======== building Auth Microservice stage ========"
                       dir('CloudProjectBackend/Auth') {
                       echo "======== executing stage ========"
-                      sh "docker login -u louay.khrouf@insat.ucar.tn -p LOUkharouf639536*"
+               
                       sh "docker build -t authcloudprojectimage ."
                       sh "docker tag authcloudprojectimage louaykharouf/authcloudprojectimage"
                       sh "docker push louaykharouf/authcloudprojectimage"
@@ -26,7 +26,7 @@ pipeline {
                     echo "======== building CRUD Microservice stage ========"
                      dir('CloudProjectBackend/CRUD') {
                       echo "======== executing stage ========"
-                      //sh "docker login -u louay.khrouf@insat.ucar.tn -p LOUkharouf639536*"
+               
                       sh "docker build -t crudcloudprojectimage ."
                       sh "docker tag crudcloudprojectimage louaykharouf/crudcloudprojectimage"
                       sh "docker push louaykharouf/crudcloudprojectimage"
@@ -42,7 +42,7 @@ pipeline {
                     echo "======== building Auth MicroFront stage ========"
                       dir('CloudProject/Auth') {
                       echo "======== executing stage ========"
-                      sh "docker login -u louay.khrouf@insat.ucar.tn -p LOUkharouf639536*"
+                    
                       sh "docker build -t authmicrofront3 ."
                       sh "docker tag authmicrofront3 louaykharouf/authmicrofront3"
                       sh "docker push louaykharouf/authmicrofront3"
@@ -50,7 +50,7 @@ pipeline {
                     echo "======== building CRUD Microservice stage ========"
                      dir('CloudProjectBackend/CRUD') {
                       echo "======== executing stage ========"
-                      //sh "docker login -u louay.khrouf@insat.ucar.tn -p LOUkharouf639536*"
+                 
                       sh "docker build -t todomicrofront2 ."
                       sh "docker tag todomicrofront2 louaykharouf/todomicrofront2"
                       sh "docker push louaykharouf/todomicrofront2"
