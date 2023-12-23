@@ -1,0 +1,54 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /crud(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: crud-app
+            port:
+              number: 5000
+      - path: /auth(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: auth-app 
+            port:
+              number: 5001
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: auth-front-app-service 
+            port:
+              number: 5173
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-world-ingress-static
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /static/$2
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /static(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: crud-app
+            port: 
+              number: 5000

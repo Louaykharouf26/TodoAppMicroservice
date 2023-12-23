@@ -46,7 +46,7 @@ function AddTasks() {
       }),
     };
 
-    fetch('http://http://20.62.217.130/crud/todos', requestOptions)
+    fetch('http://20.62.217.130/crud/todos', requestOptions)
       .then(response => response.json())
       .then(data => {
         setTasks(prevTasks => [...prevTasks, data]);
